@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
+import com.adjust.sdk.AdjustEvent;
 import com.adjust.sdk.LogLevel;
 
 import zygame.ZSDK;
@@ -38,7 +39,16 @@ import zygame.ZSDK;
 	back to Haxe from Java.
 */
 public class AdjustSdk extends Extension {
-	
+
+	/**
+	 * 要使用 Adjust SDK 发送事件信息，请实例化一个 AdjustEvent 对象。该对象中包含的变量会在应用中发生事件时被发送给 Adjust。
+	 * 要实例化事件对象，请创建新的 AdjustEvent 实例，并传送下列参数：
+	 * @param key 您的 Adjust 事件识别码
+	 */
+	public static void trackEvent(String key){
+		AdjustEvent adjustEvent = new AdjustEvent(key);
+		Adjust.trackEvent(adjustEvent);
+	}
 	
 	/**
 	 * Called when an activity you launched exits, giving you the requestCode 
@@ -66,7 +76,7 @@ public class AdjustSdk extends Extension {
 	 */
 	public void onCreate (Bundle savedInstanceState) {
 		String appToken = ZSDK.getInstance().getMetaDataKey("adjust_app_token");
-		String env = AdjustConfig.ENVIRONMENT_SANDBOX;
+		String env = "use".equals(ZSDK.getInstance().getMetaDataKey("adjust_sandbox")) ? AdjustConfig.ENVIRONMENT_SANDBOX : AdjustConfig.ENVIRONMENT_PRODUCTION;
 		AdjustConfig config = new AdjustConfig(mainActivity, appToken, env);
 		config.setLogLevel(LogLevel.VERBOSE);
 		Adjust.initSdk(config);
