@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.adjust.sdk"
+    android:versionCode="1"
+    android:versionName="1.0" >
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <application>
+        <meta-data android:name="adjust_app_token" android:value="::SET_ADJUST_APP_TOKEN::"/>
+        ::IF DEFINE_ADJUST_SANDBOX::
+        <meta-data android:name="adjust_sandbox" android:value="use"/>
+        ::END::
+    </application>
+</manifest>
