@@ -49,6 +49,18 @@ public class AdjustSdk extends Extension {
 		AdjustEvent adjustEvent = new AdjustEvent(key);
 		Adjust.trackEvent(adjustEvent);
 	}
+
+	/**
+	 * 您可以通过在实例上设定 revenue (收入) 和 currency (币种) 属性来记录与事件关联的收入。使用此功能来在应用内记录产生收入的行为。
+	 * @param key 事件key
+	 * @param revenue 事件收入额，单位为分
+	 * @param currency 事件币种
+	 */
+	public static void trackEvent(String key, int revenue, String currency){
+		AdjustEvent adjustEvent = new AdjustEvent(key);
+		adjustEvent.setRevenue(revenue, currency);
+		Adjust.trackEvent(adjustEvent);
+	}
 	
 	/**
 	 * Called when an activity you launched exits, giving you the requestCode 
@@ -75,6 +87,7 @@ public class AdjustSdk extends Extension {
 	 * Called when the activity is starting.
 	 */
 	public void onCreate (Bundle savedInstanceState) {
+		ZSDK.getInstance().activity = mainActivity;
 		String appToken = ZSDK.getInstance().getMetaDataKey("adjust_app_token");
 		String env = "use".equals(ZSDK.getInstance().getMetaDataKey("adjust_sandbox")) ? AdjustConfig.ENVIRONMENT_SANDBOX : AdjustConfig.ENVIRONMENT_PRODUCTION;
 		AdjustConfig config = new AdjustConfig(mainActivity, appToken, env);

@@ -17,6 +17,8 @@ class AdjustSdk {
 	 * @param key 您的 Adjust 事件识别码
 	 */
 	public static function trackEvent(key:String):Void {
+		if (key == "" || key == null)
+			return;
 		#if android
 		adjustsdk_trackEvent(key);
 		#end
@@ -29,6 +31,8 @@ class AdjustSdk {
 	 * @param currency 事件币种
 	 */
 	public static function trackRevenue(key:String, revenue:Int, currency:String):Void {
+		if (key == "" || key == null)
+			return;
 		#if android
 		adjustsdk_trackRevenue(key, revenue, currency);
 		#end
