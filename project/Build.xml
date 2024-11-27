@@ -10,7 +10,7 @@
 		<file name="common/adjustSdk.cpp"/>
 		
 	</files>
-	
+
 	<set name="SLIBEXT" value=".lib" if="windows"/>
 	<set name="SLIBEXT" value=".a" unless="windows"/>
 	<set name="SLIBEXT" value=".so" if="webos"/>

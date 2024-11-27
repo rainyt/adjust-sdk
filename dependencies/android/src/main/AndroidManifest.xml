@@ -7,8 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application>
         <meta-data android:name="adjust_app_token" android:value="::SET_ADJUST_APP_TOKEN::"/>
-        ::IF DEFINE_ADJUST_SANDBOX::
+        ::if DEFINE_ADJUST_SANDBOX::
         <meta-data android:name="adjust_sandbox" android:value="use"/>
-        ::END::
+        ::end::
     </application>
 </manifest>
