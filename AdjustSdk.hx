@@ -42,6 +42,8 @@ class AdjustSdk {
 			return;
 		#if android
 		adjustsdk_trackEvent(key);
+		#elseif ios
+		trackAdjustEvent(key);
 		#end
 	}
 
@@ -56,11 +58,34 @@ class AdjustSdk {
 			return;
 		#if android
 		adjustsdk_trackRevenue(key, revenue, currency);
+		#elseif ios
+		trackAdjustRevenue(key, revenue, currency);
 		#end
 	}
 
 	#if ios
+	/**
+	 * 初始化
+	 * @param token 
+	 * @param debug 
+	 */
 	@:native("initByToken")
 	extern public static function initByToken(token:cpp.ConstCharStar, debug:Bool):Void;
+
+	/**
+	 * 上报事件
+	 * @param eventToken 
+	 */
+	@:native("trackAdjustEvent")
+	extern public static function trackAdjustEvent(eventToken:cpp.ConstCharStar):Void;
+
+	/**
+	 * 上报购买记录
+	 * @param eventToken 
+	 * @param revenue 
+	 * @param currency 
+	 */
+	@:native("trackAdjustRevenue")
+	extern public static function trackAdjustRevenue(eventToken:cpp.ConstCharStar, revenue:Float, currency:cpp.ConstCharStar):Void;
 	#end
 }
