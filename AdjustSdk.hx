@@ -1,15 +1,36 @@
 package;
 
+import haxe.macro.Compiler;
 import lime.system.CFFI;
 import lime.system.JNI;
 
+/**
+ * AdjustSDK支持
+ */
+#if ios
+@:buildXml("<include name='${haxelib:adjust-sdk}/project/adjust-sdk-ios/Build.xml' />")
+@:headerInclude('adjustsdk.hpp')
+#end
 class AdjustSdk {
+	#if vscode
+	public static function main():Void {}
+	#end
+
 	#if android
 	private static var adjustsdk_trackEvent = JNI.createStaticMethod("org.haxe.extension.AdjustSdk", "trackEvent", "(Ljava/lang/String;)V");
 
 	private static var adjustsdk_trackRevenue = JNI.createStaticMethod("org.haxe.extension.AdjustSdk", "trackEvent",
 		"(Ljava/lang/String;ILjava/lang/String;)V");
 	#end
+
+	public static function init():Void {
+		#if ios
+		var token = Compiler.getDefine("adjust_app_token");
+		trace("开始初始化adjustsdk:", token);
+		var debug = #if adjust_sandbox true #else false #end;
+		initByToken(token, debug);
+		#end
+	}
 
 	/**
 	 * 要使用 Adjust SDK 发送事件信息，请实例化一个 AdjustEvent 对象。该对象中包含的变量会在应用中发生事件时被发送给 Adjust。
@@ -37,4 +58,9 @@ class AdjustSdk {
 		adjustsdk_trackRevenue(key, revenue, currency);
 		#end
 	}
+
+	#if ios
+	@:native("initByToken")
+	extern public static function initByToken(token:cpp.ConstCharStar, debug:Bool):Void;
+	#end
 }

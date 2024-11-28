@@ -1,2 +1,5 @@
 --library lime
 --no-output
+--main AdjustSdk
+-D vscode
+--cpp bin/cpp

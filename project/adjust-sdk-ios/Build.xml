@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+    <files id="haxe">
+        <compilerflag value="-I${haxelib:adjust-sdk}/project/adjust-sdk-ios/include" />
+        <file name="${haxelib:adjust-sdk}/project/adjust-sdk-ios/src/adjustsdk.mm" />
+    </files>
+</xml>
