@@ -37,6 +37,6 @@ void trackAdjustRevenue(const char* key, int revenue, const char* currency) {
     NSString *keyString = [NSString stringWithUTF8String:key];
     NSString *currencyString = [NSString stringWithUTF8String:currency];
     ADJEvent *event = [[ADJEvent alloc] initWithEventToken: keyString];
-    [event setRevenue:0.01 currency: currencyString];
+    [event setRevenue: revenue currency: currencyString];
     [Adjust trackEvent:event];
 }
